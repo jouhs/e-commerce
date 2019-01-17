@@ -16,13 +16,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		BCryptPasswordEncoder bcpe = getBCPE();
 		auth.inMemoryAuthentication().withUser("admin").password(bcpe.encode("1234")).roles("ADMIN", "USER");
-		auth.inMemoryAuthentication().withUser("user1").password(bcpe.encode("1234")).roles("ADMIN", "USER");
+		auth.inMemoryAuthentication().withUser("user1").password(bcpe.encode("1234")).roles("USER");
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests().anyRequest().permitAll();
+		http.authorizeRequests()
+			//.antMatchers("/categories").authenticated()
+			.anyRequest().permitAll();
 	}
 	
 	@Bean
