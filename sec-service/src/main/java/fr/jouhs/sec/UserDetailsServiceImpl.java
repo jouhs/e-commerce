@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fr.jouhs.entities.AppUser;
@@ -21,9 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Autowired
 	private AccountService accountService;
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		AppUser appUser = accountService.loadUserByUsername(username);
